@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>وسام العمري AI</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 24px;
+      background: #111214;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .card {
+      max-width: 440px;
+      margin: 35px auto;
+      padding: 24px;
+      border: 1px solid #b99a56;
+      border-radius: 20px;
+      background: #1d1e21;
+    }
+    h1 { color: #e2c477; }
+    p { line-height: 1.9; }
+    textarea, select, button {
+      box-sizing: border-box;
+      width: 100%;
+      margin-top: 12px;
+      padding: 13px;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+    textarea, select {
+      background: #111214;
+      color: white;
+      border: 1px solid #555;
+    }
+    button {
+      background: #b99a56;
+      color: #111214;
+      border: 0;
+      font-weight: bold;
+    }
+    #result {
+      text-align: right;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+    footer { color: #e2c477; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>وسام العمري AI</h1>
+    <p>مساعدك الذكي لصناعة محتوى فيسبوك</p>
+
+    <textarea id="topic" rows="3"
+      placeholder="اكتب موضوع المنشور هنا..."></textarea>
+
+    <select id="style">
+      <option>يمني شعبي</option>
+      <option>إخباري</option>
+      <option>سياسي ساخر</option>
+      <option>اجتماعي</option>
+    </select>
+
+    <button onclick="makePost()">إنشاء مسودة</button>
+
+    <div id="result"></div>
+
+    <button onclick="copyPost()">نسخ المسودة</button>
+
+    <footer>
+      <p>تطوير المشروع: وسام العمري</p>
+    </footer>
+  </main>
+
+  <script>
+    function makePost() {
+      const topic = document.getElementById("topic").value.trim();
+      const style = document.getElementById("style").value;
+      const result = document.getElementById("result");
+
+      if (!topic) {
+        result.textContent = "اكتب موضوع المنشور أولًا.";
+        return;
+      }
+
+      result.textContent =
+        "وسام الجمهوريه\n\n" +
+        "الموضوع: " + topic + "\n" +
+        "الأسلوب: " + style + "\n\n" +
+        "هذه مسودة أولية عن الموضوع. " +
+        "أضف التفاصيل الموثوقة وراجع النص قبل النشر.\n\n" +
+        "#وسام_الجمهوريه";
+    }
+
+    async function copyPost() {
+      const text = document.getElementById("result").textContent;
+      if (!text) return;
+      try {
+        await navigator.clipboard.writeText(text);
+        alert("تم نسخ المسودة");
+      } catch {
+        alert("حدد نص المسودة وانسخه يدويًا.");
+      }
+    }
+  </script>
+</body>
+</html>
